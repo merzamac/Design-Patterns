@@ -1,0 +1,61 @@
+┌───────────────────────────────────────────────────────────────┐
+│                         Client                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  Puede envolver componentes en varias capas de decoradores    │
+│  siempre que trabajen con todos los objetos a través de la    │
+│  interfaz del componente.                                     │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ utiliza
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    «interface»                                │
+│                     Component                                 │
+├───────────────────────────────────────────────────────────────┤
+│ + execute()                                                   │
+└───────────────────────────────────────────────────────────────┘
+                △                   △
+                │                   │
+┌─────────────────────────────┐     ┌──────────────────────────────┐
+│     Concrete Component      │     │       Base Decorator         │
+├─────────────────────────────┤     ├──────────────────────────────┤
+│ ...                         │     │ - wrapper: Component         │
+├─────────────────────────────┤     ├──────────────────────────────┤
+│ + execute()                 │     │ + BaseDecorator(c: Component)│
+└─────────────────────────────┘     │ + execute()                  │
+                                    │   wrapper.execute()          │
+                                    └──────────────────────────────┘
+                                                △
+                                                │
+                                                │
+                                ┌───────────────┴─────────────────┐
+                                │                                 │
+                ┌─────────────────────────────┐     ┌─────────────────────────────┐
+                │     Concrete DecoratorA     │     │     Concrete DecoratorB     │
+                ├─────────────────────────────┤     ├─────────────────────────────┤
+                │ ...                         │     │ ...                         │
+                ├─────────────────────────────┤     ├─────────────────────────────┤
+                │ + execute()                 │     │ + execute()                 │
+                │   super.execute()           │     │   super.execute()           │
+                │   extra()                   │     │   extra()                   │
+                └─────────────────────────────┘     └─────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ Explicación:                                                  │
+│                                                               │
+│ • La clase Decoradora Base tiene un campo para referenciar    │
+│   un objeto envuelto (wrapper).                               │
+│                                                               │
+│ • El tipo del campo debe declararse como la interfaz del      │
+│   componente para que pueda contener tanto componentes        │
+│   concretos como decoradores.                                 │
+│                                                               │
+│ • La clase decoradora base delega todas las operaciones al    │
+│   objeto envuelto.                                            │
+│                                                               │
+│ • Los Decoradores Concretos:                                  │
+│   - Llaman a super.execute()                                  │
+│   - Agregan funcionalidad extra()                             │
+│   - Pueden ejecutar wrapper.execute()                         │
+└───────────────────────────────────────────────────────────────┘

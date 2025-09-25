@@ -1,0 +1,69 @@
+┌───────────────────────────────────────────────────────────────┐
+│                         Client                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  Contiene la lógica de negocio existente del programa.        │
+│                                                               │
+│  El código cliente no se acopla a la clase adaptadora         │
+│  concreta siempre y cuando funcione con la clase adaptadora   │
+│  a través de la interfaz con el cliente.                      │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ utiliza
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    «interface»                                │
+│                 Client Interface                              │
+├───────────────────────────────────────────────────────────────┤
+│ + method(data)                                                │
+└───────────────────────────────────────────────────────────────┘
+                                △
+                                │ implementa
+                                │
+┌───────────────────────────────────────────────────────────────┐
+│                         Adapter                               │
+├───────────────────────────────────────────────────────────────┤
+│ - adaptee: Service                                            │
+├───────────────────────────────────────────────────────────────┤
+│ + method(data)                                                │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ envuelve y adapta
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                         Service                               │
+├───────────────────────────────────────────────────────────────┤
+│ ...                                                           │
+├───────────────────────────────────────────────────────────────┤
+│ + serviceMethod(specialData)                                  │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ Implementación en Adapter:                                    │
+│                                                               │
+│ method(data) {                                                │
+│   specialData = convertToServiceFormat(data)                  │
+│   return adaptee.serviceMethod(specialData)                   │
+│ }                                                             │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ Explicación:                                                  │
+│                                                               │
+│ 1. Service es alguna clase útil (normalmente de una tercera   │
+│    parte o heredada). El cliente no puede utilizar            │
+│    directamente esta clase porque tiene una interfaz          │
+│    incompatible.                                              │
+│                                                               │
+│ 2. La Interfaz con el Cliente describe un protocolo que       │
+│    otras clases deben seguir para poder colaborar con el      │
+│    código cliente.                                            │
+│                                                               │
+│ 3. El código cliente puede introducir nuevos tipos de         │
+│    adaptadores sin descomponer el código existente.           │
+│                                                               │
+│ 4. La clase Adaptadora es capaz de trabajar tanto con la      │
+│    clase cliente como con la clase de servicio: implementa    │
+│    la interfaz con el cliente, mientras envuelve el objeto    │
+│    de la clase de servicio y traduce las llamadas.            │
+└───────────────────────────────────────────────────────────────┘

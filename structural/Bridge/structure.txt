@@ -1,0 +1,78 @@
+┌───────────────────────────────────────────────────────────────┐
+│                         Client                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  Normalmente sólo está interesado en trabajar con la          │
+│  abstracción. Debe vincular la abstracción con una            │
+│  implementación concreta.                                     │
+│                                                               │
+│  abstraccion.feature10()                                      │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ utiliza
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                     Abstraction                              │
+├───────────────────────────────────────────────────────────────┤
+│ - implementation: Implementation                              │
+├───────────────────────────────────────────────────────────────┤
+│ + feature10()                                                 │
+│ + feature20()                                                 │
+│ + feature30()                                                 │
+└───────────────────────────────────────────────────────────────┘
+                △
+                │
+                │
+┌───────────────────────────────────────────────────────────────┐
+│                  Refined Abstraction                         │
+├───────────────────────────────────────────────────────────────┤
+│ ...                                                           │
+├───────────────────────────────────────────────────────────────┤
+│ + featureN0()                                                 │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ delega a
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    «interface»                                │
+│                   Implementation                              │
+├───────────────────────────────────────────────────────────────┤
+│ + method1()                                                   │
+│ + method2()                                                   │
+│ + method3()                                                   │
+└───────────────────────────────────────────────────────────────┘
+                △
+                │
+                │
+┌───────────────────────────────────────────────────────────────┐
+│                Concrete Implementations                      │
+├───────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────┐  ┌─────────────────────────┐    │
+│  │  ConcreteImplementationA│  │  ConcreteImplementationB│    │
+│  ├─────────────────────────┤  ├─────────────────────────┤    │
+│  │ + method1()             │  │ + method1()             │    │
+│  │ + method2()             │  │ + method2()             │    │
+│  │ + method3()             │  │ + method3()             │    │
+│  └─────────────────────────┘  └─────────────────────────┘    │
+│                                                               │
+│  Las Implementaciones Concretas contienen código             │
+│  específico de plataforma.                                   │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ Explicación:                                                  │
+│                                                               │
+│ • La Abstracción ofrece lógica de control de alto nivel y     │
+│   depende del objeto de implementación para el trabajo de     │
+│   bajo nivel.                                                 │
+│                                                               │
+│ • Los Abstracciones Refinadas proporcionan variantes de       │
+│   lógica de control y trabajan con distintas implementaciones │
+│   a través de la interfaz general.                            │
+│                                                               │
+│ • La Implementación declara la interfaz común a todas las     │
+│   implementaciones concretas.                                 │
+│                                                               │
+│ • La abstracción declara funcionalidades complejas que        │
+│   dependen de operaciones primitivas de la implementación.    │
+└───────────────────────────────────────────────────────────────┘

@@ -1,0 +1,66 @@
+┌───────────────────────────────────────────────────────────────┐
+│                         Client                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  copy = existing.clone()                                      │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ utiliza
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    «interface»                                │
+│                     Prototype                                 │
+├───────────────────────────────────────────────────────────────┤
+│ + clone(): Prototype                                          │
+└───────────────────────────────────────────────────────────────┘
+                                △
+                                │ implementa
+                                │
+                ┌───────────────┴─────────────────┐
+                │                                 │
+┌─────────────────────────────┐     ┌─────────────────────────────┐
+│    ConcretePrototype        │     │     SubclassPrototype       │
+├─────────────────────────────┤     ├─────────────────────────────┤
+│ - field1                    │     │ - field2                    │
+├─────────────────────────────┤     ├─────────────────────────────┤
+│ + ConcretePrototype(prototype) │ │ + SubclassPrototype(prototype) │
+│ + clone(): Prototype        │     │ + clone(): Prototype        │
+└─────────────────────────────┘     └─────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ 1. La interfaz Prototipo declara los métodos de clonación.    │
+│    En la mayoría de los casos, se trata de un único método    │
+│    `clonar`.                                                  │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ 2. La clase Prototipo Concreto implementa el método de        │
+│    clonación. Además de copiar la información del objeto      │
+│    original al clon, este método también puede gestionar      │
+│    algunos casos extremos del proceso de clonación.           │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ 3. El Cliente puede producir una copia de cualquier objeto    │
+│    que siga la interfaz del prototipo.                        │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ Implementación en ConcretePrototype:                          │
+│                                                               │
+│ clone() {                                                     │
+│   this.field1 = prototype.field1                              │
+│   return new ConcretePrototype(this)                          │
+│ }                                                             │
+└───────────────────────────────────────────────────────────────┘
+
+┌───────────────────────────────────────────────────────────────┐
+│ Implementación en SubclassPrototype:                          │
+│                                                               │
+│ clone() {                                                     │
+│   super(prototype)                                            │
+│   this.field2 = prototype.field2                              │
+│   return new SubclassPrototype(this)                          │
+│ }                                                             │
+└───────────────────────────────────────────────────────────────┘

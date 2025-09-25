@@ -1,0 +1,69 @@
+┌───────────────────────────────────────────────────────────────┐
+│                         Client                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  Utiliza la fachada en lugar de invocar directamente los      │
+│  objetos del subsistema.                                      │
+└───────────────────────────────────────────────────────────────┘
+                                │
+                                │ utiliza
+                                ▼
+┌───────────────────────────────────────────────────────────────┐
+│                         Facade                                │
+├───────────────────────────────────────────────────────────────┤
+│ - LinksToSubsystemObjects                                     │
+│ - optionalAdditionalFacade                                    │
+├───────────────────────────────────────────────────────────────┤
+│ + subsystemOperation()                                        │
+└───────────────────────────────────────────────────────────────┘
+                │                         │
+                │ delega                  │ utiliza (opcional)
+                ▼                         ▼
+┌─────────────────────────────────┐ ┌─────────────────────────────────┐
+│      Additional Facade          │ │      Complex Subsystem          │
+├─────────────────────────────────┤ ├─────────────────────────────────┤
+│ ...                             │ │ • Decenas de objetos diversos   │
+├─────────────────────────────────┤ │ • Operan entre sí directamente  │
+│ + anotherOperation()            │ │ • No conocen la existencia de   │
+└─────────────────────────────────┘ │   la fachada                    │
+                │                   └─────────────────────────────────┘
+                │ delega                    △
+                ▼                           │
+┌─────────────────────────────────┐         │
+│      Subsystem Classes          │         │
+│                                 │         │
+│  ┌─────────────────────────┐    │         │
+│  │   Subsystem class       │    │         │
+│  └─────────────────────────┘    │         │
+│                                 │         │
+│  ┌─────────────────────────┐    │         │
+│  │   Subsystem class       │    │         │
+│  └─────────────────────────┘    │         │
+│                                 │         │
+│  ┌─────────────────────────┐    │         │
+│  │   Subsystem class       │    │         │
+│  └─────────────────────────┘    │         │
+│                                 │         │
+│  ┌─────────────────────────┐    │         │
+│  │   Subsystem class       │    │         │
+│  └─────────────────────────┘    │         │
+└─────────────────────────────────┘         │
+                △                           │
+                └───────────────────────────┘
+                      colaboran entre sí
+
+┌───────────────────────────────────────────────────────────────┐
+│ Explicación:                                                  │
+│                                                               │
+│ • El patrón Facade proporciona acceso práctico a una parte    │
+│   específica de la funcionalidad del subsistema.              │
+│                                                               │
+│ • Sabe a dónde dirigir la petición del cliente y cómo operar  │
+│   todas las partes móviles.                                   │
+│                                                               │
+│ • Puede crearse una Fachada Adicional para evitar contaminar  │
+│   una única fachada con funciones no relacionadas.            │
+│                                                               │
+│ • El Subsistema Complejo consiste en decenas de objetos       │
+│   diversos que operan entre sí directamente.                  │
+└───────────────────────────────────────────────────────────────┘
