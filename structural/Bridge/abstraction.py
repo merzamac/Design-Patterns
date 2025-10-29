@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from structural.Bridge.implementation import Color
 
 
 class RemoteControl:
@@ -28,3 +28,20 @@ class RemoteControl:
 class AdvancedRemoteControl(RemoteControl):
     def mute(self):
         self.device.set_volume(0)
+
+
+class Shape:
+    def __init__(self, color: Color):
+        self.color = color
+
+    def draw(self):
+        pass
+
+
+class Circle(Shape):
+    def __init__(self, color: Color, redius: int):
+        super().__init__(color)
+        self.radius = None
+
+    def draw(self):
+        return f"Círculo {self.color.apply()}"

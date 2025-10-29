@@ -1,5 +1,11 @@
-from structural.Bridge.abstraction import AdvancedRemoteControl, RemoteControl
+from structural.Bridge.abstraction import (
+    AdvancedRemoteControl,
+    Circle,
+    RemoteControl,
+    Shape,
+)
 from structural.Bridge.concrete_implementations import Radio, Tv
+from structural.Bridge.implementation import Blue, Color, Red
 
 
 def client_code():
@@ -18,5 +24,13 @@ def client_code():
     advanced_remote.mute()
 
 
+def client_code2():
+    circulo_blue = Circle(Blue(), 3)
+    circulo_red = Circle(Red(), 5)
+
+    print(circulo_red.draw())
+    print(circulo_blue.draw())
+
+
 def bridge():
-    client_code()
+    client_code2()
